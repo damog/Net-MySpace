@@ -1,0 +1,141 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Net::MySpace - MySpaceID SDK for Perl</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:_www@b02.apple.com" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#api_resources">API Resources</a></li>
+	<ul>
+
+		<li><a href="#activities">Activities</a></li>
+		<ul>
+
+			<li><a href="#activities">activities</a></li>
+			<li><a href="#friends_activities">friends_activities</a></li>
+		</ul>
+
+		<li><a href="#albums">Albums</a></li>
+		<ul>
+
+			<li><a href="#albums">albums</a></li>
+			<li><a href="#album">album</a></li>
+			<li><a href="#album_photos">album_photos</a></li>
+		</ul>
+
+		<li><a href="#friends">Friends</a></li>
+		<ul>
+
+			<li><a href="#verify_friendship">verify_friendship</a></li>
+		</ul>
+
+	</ul>
+
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>Net::MySpace - MySpaceID SDK for Perl</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<pre>
+
+ use Net::MySpace;</pre>
+<pre>
+
+ my $ms = Net::MySpace-&gt;new(
+        consumer_key =&gt; $consumer_key,
+        consumer_secret =&gt; $consumer_secret,
+ );</pre>
+<pre>
+ # If you already have the access tokens, you should use them
+ # here, to request access:
+ if ($access_token &amp;&amp; $access_token_secret) {
+     $ms-&gt;oauth-&gt;access_token($access_token);
+     $ms-&gt;oauth-&gt;access_token_secret($access_token_secret);
+ }
+ # otherwise, it means it's a new access
+ 
+ # in any case, you will need to verify authorization:
+ # unless ($ms-&gt;oauth-&gt;authorized) {
+        say &quot;Go to: &quot;.$ms-&gt;get_authorization_url;
+        &lt;STDIN&gt;; # waiting for the user to hit ENTER</pre>
+<pre>
+        # once the user has granted access to your application,
+        # you can store the access token to use later on on new
+        # program executions
+        my($access_token, $access_token_secret) = $ms-&gt;oauth-&gt;request_access_token;
+ }</pre>
+<pre>
+ my $user = $ms-&gt;user;</pre>
+<pre>
+ my $friends_status = $ms-&gt;friends_status(
+        userId =&gt; $user
+ );</pre>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>Some bullshit.</p>
+<p>
+</p>
+<hr />
+<h1><a name="api_resources">API Resources</a></h1>
+<p>The following methods are implemented on this version of <code>Net::MySpace</code>:</p>
+<p>
+</p>
+<h2><a name="activities">Activities</a></h2>
+<p><code>http://wiki.developer.myspace.com/index.php?title=MySpace_REST_Resources#Activities</code></p>
+<p>
+</p>
+<h3><a name="activities">activities</a></h3>
+<p>Required parameters: <code>userId</code>.</p>
+<p>
+</p>
+<h3><a name="friends_activities">friends_activities</a></h3>
+<p>Required parameters: <code>userId</code>.</p>
+<p>
+</p>
+<h2><a name="albums">Albums</a></h2>
+<p><code>http://wiki.developer.myspace.com/index.php?title=MySpace_REST_Resources#Albums</code></p>
+<p>
+</p>
+<h3><a name="albums">albums</a></h3>
+<p>Required parameters: <code>userId</code>.</p>
+<p>
+</p>
+<h3><a name="album">album</a></h3>
+<p>Required parameters: <code>userId</code>, <code>albumId</code>.</p>
+<p>
+</p>
+<h3><a name="album_photos">album_photos</a></h3>
+<p>Required parameters: <code>userId</code>, <code>albumId</code>.</p>
+<p>
+</p>
+<h2><a name="friends">Friends</a></h2>
+<p><code>http://wiki.developer.myspace.com/index.php?title=MySpace_REST_Resources#Friends</code></p>
+<p>
+</p>
+<h3><a name="verify_friendship">verify_friendship</a></h3>
+<p>Required parameters: <code>userId</code>, <code>friendsId</code>.</p>
+
+</body>
+
+</html>
