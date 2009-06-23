@@ -82,12 +82,6 @@ The following methods are implemented on this version of C<Net::MySpace>:
 
 =cut
 
-my $api_def = {
-	
-	###
-	### activities
-	###
-
 =head2 Activities
 
 C<http://wiki.developer.myspace.com/index.php?title=MySpace_REST_Resources#Activities>
@@ -97,25 +91,12 @@ C<http://wiki.developer.myspace.com/index.php?title=MySpace_REST_Resources#Activ
 Required parameters: C<userId>.
 
 =cut
-	'activities' => {
-		resource => '/:version/users/:userId/activities',
-		format => 'atom',
-		method => 'GET',
-		api_name => 'GET_v1_users_userId_activities',
-	},
 
 =head3 friends_activities
 
 Required parameters: C<userId>.
 
 =cut
-	'friends_activities' => {
-		resource => '/:version/users/:userId/friends/activities',
-		format => 'atom',
-		method => 'GET',
-		api_name => 'GET_v1_users_userId_friends_activities',
-	},
-
 
 =head2 Albums
 
@@ -126,34 +107,18 @@ C<http://wiki.developer.myspace.com/index.php?title=MySpace_REST_Resources#Album
 Required parameters: C<userId>.
 
 =cut
-	'albums' => {
-		resource => '/:version/users/:userId/albums',
-		method => 'GET',
-		api_name => 'GET_v1_users_userId_albums',
-	},
 
 =head3 album
 
 Required parameters: C<userId>, C<albumId>.
 
 =cut
-	'album' => {
-		resource => '/:version/users/:userId/:albumId',
-		method => 'GET',
-		api_name => 'GET_v1_users_userId_albums_albumId',
-	},
 
 =head3 album_photos
 
 Required parameters: C<userId>, C<albumId>.
 
 =cut
-	'album_photos' => {
-		resource => '/:version/users/:userId/albums/:albumId/photos',
-		method => 'GET',
-		api_name => 'GET_v1_users_userId_albums_albumId_photos',
-	},
-
 
 =head2 Friends
 
@@ -164,17 +129,71 @@ C<http://wiki.developer.myspace.com/index.php?title=MySpace_REST_Resources#Frien
 Required parameters: C<userId>, C<friendsId>.
 
 =cut
+
+=head3 friends_status
+
+Required parameters: C<userId>.
+
+=cut
+
+my $api_def = {
+	
+	###
+	### activities
+	###
+
+
+	'activities' => {
+		resource => '/:version/users/:userId/activities',
+		format => 'atom',
+		method => 'GET',
+		api_name => 'GET_v1_users_userId_activities',
+	},
+
+
+
+	'friends_activities' => {
+		resource => '/:version/users/:userId/friends/activities',
+		format => 'atom',
+		method => 'GET',
+		api_name => 'GET_v1_users_userId_friends_activities',
+	},
+
+
+
+	'albums' => {
+		resource => '/:version/users/:userId/albums',
+		method => 'GET',
+		api_name => 'GET_v1_users_userId_albums',
+	},
+
+
+
+	'album' => {
+		resource => '/:version/users/:userId/:albumId',
+		method => 'GET',
+		api_name => 'GET_v1_users_userId_albums_albumId',
+	},
+
+
+	'album_photos' => {
+		resource => '/:version/users/:userId/albums/:albumId/photos',
+		method => 'GET',
+		api_name => 'GET_v1_users_userId_albums_albumId_photos',
+	},
+
+
+
+
 	'verify_friendship' => {
 		resource => '/:version/users/:userId/friends/:friendsId',
 		method => 'GET',
 		api_name => 'GET_v1_users_userId_friends_friendsId',
 	},
 	
-=head3 friends_status
+	
+	
 
-Required parameters: C<userId>.
-
-=cut
 	'friends_status' => {
 		resource => '/:version/users/:userId/friends/status',
 		method => 'GET',
@@ -226,13 +245,13 @@ Required parameters: C<userId>.
 
 while(my($k, $v) = each %$api_def) {
 	no strict 'refs';
-	
-	my $url = $API_URL.$v->{resource};
-	
+		
 	*{__PACKAGE__ . "::$k"} = sub {
 		my $self = shift;
 		my %args = @_;
 		my $j = JSON::Any->new;
+		
+		my $url = $API_URL.$v->{resource};
 		
 		# replace version
 		$url =~ s/:version/$API_VERSION/;
